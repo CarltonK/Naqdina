@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "980132176254",
+    "firebase_url": "https://naqdina-61295.firebaseio.com",
+    "project_id": "naqdina-61295",
+    "storage_bucket": "naqdina-61295.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980132176254:android:98ebe29b0880ef5562132f",
+        "android_client_info": {
+          "package_name": "com.triplat.naqdina"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980132176254-qcfmscvb40pevep11tr73f3k3skjjtd4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbM4vO1oHY1vx1UoEscxTmKmGnr9BCjbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980132176254-qcfmscvb40pevep11tr73f3k3skjjtd4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
