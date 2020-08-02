@@ -26,6 +26,7 @@ flutter:
     - assets/logos/
     - assets/images/language/
     - assets/images/onboarding/
+    - assets/images/authentication/
 
 flutter_icons:
   ios: true

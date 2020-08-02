@@ -47,7 +47,7 @@ class MobileLanguage extends StatelessWidget {
   final String _imgSrc = 'assets/images/language/language.png';
   final String _imgUk = 'assets/images/language/uk_flag.png';
 
-  final List<String> _allLanguages = ['English', 'Kiswahili'];
+  final List<String> _allLanguages = ['Dari (Farsi)', 'English', 'Pashtoo'];
 
   Widget _singleLanguage(int index) {
     return Column(
@@ -81,7 +81,7 @@ class MobileLanguage extends StatelessWidget {
 
   Widget _listLanguages(Size size) {
     return LimitedBox(
-      maxHeight: size.height * 0.2,
+      maxHeight: size.height * 0.25,
       child: ListView.builder(
         itemCount: _allLanguages.length,
         itemBuilder: (context, index) => _singleLanguage(index),

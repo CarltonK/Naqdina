@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naqdina/authentication/login_screen.dart';
+import 'package:naqdina/transitions/transitions.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   @override
@@ -92,9 +94,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           height: 40,
         ),
         RaisedButton(
-            onPressed: () => print('Let us get started'),
+            onPressed: () =>
+                Navigator.of(context).push(SizeRoute(page: LoginScreen())),
             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 16),
-            color: Theme.of(context).accentColor,
+            color: Theme.of(context).primaryColor,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             child: Text("Let's get started",
