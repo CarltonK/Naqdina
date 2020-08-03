@@ -26,9 +26,9 @@ class SlideLeftTransition extends PageRouteBuilder {
         );
 }
 
-class SlideRightTransition extends PageRouteBuilder {
+class SlideUpTransition extends PageRouteBuilder {
   final Widget page;
-  SlideRightTransition({this.page})
+  SlideUpTransition({this.page})
       : super(
           pageBuilder: (
             BuildContext context,

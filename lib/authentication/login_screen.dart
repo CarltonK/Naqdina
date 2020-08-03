@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naqdina/authentication/deactivated_user.dart';
+import 'package:naqdina/authentication/forgot_password.dart';
 import 'package:naqdina/authentication/registration_screen.dart';
 import 'package:naqdina/transitions/transitions.dart';
 
-class LoginScreen extends StatelessWidget {
-  final String imgSrc = 'assets/logos/splash_logo.png';
-  final _formKey = GlobalKey<FormState>();
+class LoginScreen extends StatefulWidget {
+  
 
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final String imgSrc = 'assets/logos/splash_logo.png';
   static String _email, _password;
+
+  final _formKey = GlobalKey<FormState>();
+  bool _isObscured = true;
+
   final FocusNode _focusPassword = FocusNode();
 
   Widget _appBar() {
@@ -18,13 +28,11 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  //Handle Phone Input
   void _handleSubmittedEmail(String value) {
     _email = value.trim();
     print('Email: ' + _email);
   }
 
-  //Handle Password Input
   void _handleSubmittedPassword(String value) {
     _password = value.trim();
     print('Password: ' + _password);
@@ -44,7 +52,7 @@ class LoginScreen extends StatelessWidget {
     return null;
   }
 
-  Widget _emailTF(BuildContext context) {
+  Widget _emailTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -68,7 +76,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _passwordTF(BuildContext context) {
+  Widget _passwordTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -80,22 +88,28 @@ class LoginScreen extends StatelessWidget {
               FocusScope.of(context).unfocus();
             },
             validator: validatePassword,
-            obscureText: true,
+            obscureText: _isObscured,
             focusNode: _focusPassword,
             onSaved: _handleSubmittedPassword,
             decoration: InputDecoration(
               errorBorder:
                   OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
               border: OutlineInputBorder(),
-              suffixIcon:
-                  IconButton(icon: Icon(Icons.remove_red_eye), onPressed: null),
+              suffixIcon: IconButton(
+                icon: Icon(Icons.remove_red_eye),
+                onPressed: () {
+                  setState(() {
+                    _isObscured = !_isObscured;
+                  });
+                },
+              ),
               labelText: 'Password',
             ))
       ],
     );
   }
 
-  Widget _loginBtn(BuildContext context) {
+  Widget _loginBtn() {
     return MaterialButton(
       color: Theme.of(context).primaryColor,
       minWidth: MediaQuery.of(context).size.width,
@@ -116,7 +130,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _signUpBtn(BuildContext context) {
+  Widget _signUpBtn() {
     return Container(
       alignment: Alignment.center,
       child: FlatButton(
@@ -136,7 +150,8 @@ class LoginScreen extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       child: FlatButton(
-          onPressed: () => print('I want to reset my password'),
+          onPressed: () => Navigator.of(context)
+              .push(SlideLeftTransition(page: ForgotPasswordScreen())),
           child: Text(
             'Forgot your password?',
             style: GoogleFonts.raleway(fontSize: 20),
@@ -163,7 +178,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _body(BuildContext context) {
+  Widget _body() {
     return Container(
       height: double.infinity,
       child: SingleChildScrollView(
@@ -178,22 +193,19 @@ class LoginScreen extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            _emailTF(context),
+            _emailTF(),
             SizedBox(
               height: 30,
             ),
-            _passwordTF(context),
+            _passwordTF(),
             SizedBox(
               height: 20,
             ),
-            _loginBtn(context),
+            _loginBtn(),
             SizedBox(
               height: 20,
             ),
-            _signUpBtn(context),
-            SizedBox(
-              height: 10,
-            ),
+            _signUpBtn(),
             _forgotPasswordBtn()
           ],
         ),
@@ -201,7 +213,7 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  Widget _bottomSheet(BuildContext context) {
+  Widget _bottomSheet() {
     return Container(
       color: Theme.of(context).accentColor,
       height: 55,
@@ -222,10 +234,10 @@ class LoginScreen extends StatelessWidget {
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Stack(
-          children: [_backgroundColor(), _body(context)],
+          children: [_backgroundColor(), _body()],
         ),
       ),
-      bottomSheet: _bottomSheet(context),
+      bottomSheet: _bottomSheet(),
     );
   }
 }
