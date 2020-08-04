@@ -1,56 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naqdina/authentication/sign_up/sign_up_success.dart';
+import 'package:naqdina/transitions/transitions.dart';
 
-class CodePage extends StatefulWidget {
-  final PageController controller;
-  CodePage({@required this.controller});
-
+class PinInfo extends StatefulWidget {
   @override
-  _CodePageState createState() => _CodePageState();
+  _PinInfoState createState() => _PinInfoState();
 }
 
-class _CodePageState extends State<CodePage> {
-  Widget _codeText() {
+class _PinInfoState extends State<PinInfo> {
+  Widget _introText() {
     return RichText(
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(
-              text: 'Enter the 6 digit code sent to\n',
+              text:
+                  'Create your PIN for Transaction authorization in Naqdina System',
               style: GoogleFonts.raleway(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
                   fontSize: 16)),
-          TextSpan(
-              text: '+93 01 23 45 67 89',
-              style: GoogleFonts.raleway(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16))
         ]));
   }
 
-  Widget _phoneTF() {
+  Widget _pinTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         TextFormField(
             autofocus: false,
-            keyboardType: TextInputType.phone,
+            keyboardType: TextInputType.text,
             style: GoogleFonts.raleway(textStyle: TextStyle()),
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               errorBorder:
                   OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
               border: OutlineInputBorder(),
-              prefix: Text('+93 '),
               prefixStyle: GoogleFonts.raleway(fontSize: 20),
-              labelText: 'Mobile Number',
+              labelText: 'PIN',
             ))
       ],
     );
   }
 
-  Widget _numberTwoNextBtn() {
+    Widget _completeBtn() {
     return MaterialButton(
       color: Theme.of(context).primaryColor,
       minWidth: MediaQuery.of(context).size.width,
@@ -58,7 +51,7 @@ class _CodePageState extends State<CodePage> {
       height: 50,
       child: Center(
           child: Text(
-        'NEXT',
+        'COMPLETE',
         style: GoogleFonts.raleway(
             color: Colors.white,
             fontSize: 22,
@@ -66,20 +59,8 @@ class _CodePageState extends State<CodePage> {
             letterSpacing: 0.5),
       )),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      onPressed: () => widget.controller.nextPage(
-          duration: Duration(milliseconds: 250), curve: Curves.decelerate),
+      onPressed: () => Navigator.of(context).push(SlideUpTransition(page: SignUpSuccess())),
     );
-  }
-
-  Widget _resendCode() {
-    return FlatButton(
-        onPressed: () => print('I want to resend the code'),
-        child: Text('RESEND THE CODE',
-            style: GoogleFonts.raleway(
-                color: Colors.grey,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-                letterSpacing: 0.5)));
   }
 
   @override
@@ -92,19 +73,15 @@ class _CodePageState extends State<CodePage> {
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
-              _codeText(),
+              _introText(),
               SizedBox(
                 height: 30,
               ),
-              _phoneTF(),
+              _pinTF(),
               SizedBox(
                 height: 20,
               ),
-              _resendCode(),
-              SizedBox(
-                height: 20,
-              ),
-              _numberTwoNextBtn()
+              _completeBtn()
             ],
           ),
         ),

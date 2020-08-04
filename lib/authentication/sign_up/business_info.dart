@@ -1,56 +1,93 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CodePage extends StatefulWidget {
+class BusinessInfo extends StatefulWidget {
   final PageController controller;
-  CodePage({@required this.controller});
-
+  BusinessInfo({@required this.controller});
   @override
-  _CodePageState createState() => _CodePageState();
+  _BusinessInfoState createState() => _BusinessInfoState();
 }
 
-class _CodePageState extends State<CodePage> {
-  Widget _codeText() {
+class _BusinessInfoState extends State<BusinessInfo> {
+  static String _type;
+
+  Widget _introText() {
     return RichText(
         textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(
-              text: 'Enter the 6 digit code sent to\n',
+              text: 'Business Information',
               style: GoogleFonts.raleway(
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
                   fontSize: 16)),
-          TextSpan(
-              text: '+93 01 23 45 67 89',
-              style: GoogleFonts.raleway(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16))
         ]));
   }
 
-  Widget _phoneTF() {
+  Widget _addressTF() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         TextFormField(
             autofocus: false,
-            keyboardType: TextInputType.phone,
+            keyboardType: TextInputType.text,
             style: GoogleFonts.raleway(textStyle: TextStyle()),
             textInputAction: TextInputAction.done,
             decoration: InputDecoration(
               errorBorder:
                   OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
               border: OutlineInputBorder(),
-              prefix: Text('+93 '),
               prefixStyle: GoogleFonts.raleway(fontSize: 20),
-              labelText: 'Mobile Number',
+              labelText: 'Address',
             ))
       ],
     );
   }
 
-  Widget _numberTwoNextBtn() {
+  Widget _nameTF() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        TextFormField(
+            autofocus: false,
+            keyboardType: TextInputType.text,
+            style: GoogleFonts.raleway(textStyle: TextStyle()),
+            textInputAction: TextInputAction.done,
+            decoration: InputDecoration(
+              errorBorder:
+                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+              border: OutlineInputBorder(),
+              prefixStyle: GoogleFonts.raleway(fontSize: 20),
+              labelText: 'Shop/Business Name',
+            ))
+      ],
+    );
+  }
+
+  List<DropdownMenuItem> types = [
+    DropdownMenuItem(value: 'ngo', child: Text('NGO'))
+  ];
+
+  Widget _typeSelector() {
+    return Container(
+      padding: EdgeInsets.all(6),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          border: Border.all(color: Colors.black.withOpacity(0.4))),
+      child: DropdownButton(
+        items: types,
+        underline: Divider(color: Colors.transparent),
+        value: _type,
+        onChanged: (value) {
+          _type = value;
+        },
+        isExpanded: true,
+        hint: Text('Type'),
+      ),
+    );
+  }
+
+  Widget _nextBtn() {
     return MaterialButton(
       color: Theme.of(context).primaryColor,
       minWidth: MediaQuery.of(context).size.width,
@@ -71,17 +108,6 @@ class _CodePageState extends State<CodePage> {
     );
   }
 
-  Widget _resendCode() {
-    return FlatButton(
-        onPressed: () => print('I want to resend the code'),
-        child: Text('RESEND THE CODE',
-            style: GoogleFonts.raleway(
-                color: Colors.grey,
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-                letterSpacing: 0.5)));
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -92,19 +118,23 @@ class _CodePageState extends State<CodePage> {
           physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
-              _codeText(),
+              _introText(),
               SizedBox(
                 height: 30,
               ),
-              _phoneTF(),
+              _addressTF(),
               SizedBox(
                 height: 20,
               ),
-              _resendCode(),
+              _nameTF(),
               SizedBox(
                 height: 20,
               ),
-              _numberTwoNextBtn()
+              _typeSelector(),
+              SizedBox(
+                height: 20,
+              ),
+              _nextBtn()
             ],
           ),
         ),

@@ -49,6 +49,7 @@ class _NumberPageState extends State<NumberPage> {
   Widget _countryDropDown() {
     return Container(
       padding: EdgeInsets.all(6),
+      width: MediaQuery.of(context).size.width * .25,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: Colors.black.withOpacity(0.4))),
@@ -59,30 +60,25 @@ class _NumberPageState extends State<NumberPage> {
         onChanged: (value) {
           _country = value;
         },
-        isExpanded: false,
+        isExpanded: true,
       ),
     );
   }
 
   Widget _phoneTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        TextFormField(
-            autofocus: false,
-            keyboardType: TextInputType.phone,
-            style: GoogleFonts.raleway(textStyle: TextStyle()),
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              errorBorder:
-                  OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
-              border: OutlineInputBorder(),
-              prefix: Text('+93 '),
-              prefixStyle: GoogleFonts.raleway(fontSize: 20),
-              labelText: 'Mobile Number',
-            ))
-      ],
-    );
+    return TextFormField(
+        autofocus: false,
+        keyboardType: TextInputType.phone,
+        style: GoogleFonts.raleway(textStyle: TextStyle()),
+        textInputAction: TextInputAction.done,
+        decoration: InputDecoration(
+          errorBorder:
+              OutlineInputBorder(borderSide: BorderSide(color: Colors.red)),
+          border: OutlineInputBorder(),
+          prefix: Text('+93 '),
+          prefixStyle: GoogleFonts.raleway(fontSize: 20),
+          labelText: 'Mobile Number',
+        ));
   }
 
   Widget _numberOneNextBtn() {
@@ -112,22 +108,27 @@ class _NumberPageState extends State<NumberPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Container(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           physics: AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           child: Column(
             children: [
               _supportText(),
               SizedBox(
                 height: 30,
               ),
-              Row(
-                children: [
-                  _countryDropDown(),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(child: _phoneTF())
-                ],
+              SizedBox(
+                height: 60,
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    _countryDropDown(),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(child: _phoneTF())
+                  ],
+                ),
               ),
               SizedBox(
                 height: 30,

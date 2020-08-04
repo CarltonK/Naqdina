@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:naqdina/authentication/sign_up/sign_up_page.dart';
+import 'package:naqdina/transitions/transitions.dart';
 
 class RegistrationScreen extends StatefulWidget {
   @override
@@ -16,7 +18,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       backgroundColor: Colors.white,
       elevation: 0,
       title: Text(
-        'Sign Up',
+        'Create a new agent\'s account',
         style: GoogleFonts.raleway(color: Colors.black),
       ),
       leading: IconButton(
@@ -105,7 +107,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             letterSpacing: 0.5),
       )),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      onPressed: () => print('I want to continue'),
+      onPressed: () =>
+          Navigator.of(context).push(SlideLeftTransition(page: SignUpScreen())),
     );
   }
 
@@ -162,13 +165,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       height: double.infinity,
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.only(left: 40, right: 40, top: 120),
+        padding: EdgeInsets.symmetric(horizontal: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Create a new agent's account",
-                style: GoogleFonts.raleway(
-                    fontSize: 22, fontWeight: FontWeight.w600)),
             SizedBox(
               height: 30,
             ),

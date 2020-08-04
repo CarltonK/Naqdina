@@ -6,8 +6,6 @@ import 'package:naqdina/authentication/registration_screen.dart';
 import 'package:naqdina/transitions/transitions.dart';
 
 class LoginScreen extends StatefulWidget {
-  
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -163,12 +161,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       height: double.infinity,
       width: double.infinity,
-      child: Align(
-          alignment: Alignment.topCenter,
-          child: Image.asset(
-            imgSrc,
-            height: 75,
-          )),
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
@@ -183,10 +175,17 @@ class _LoginScreenState extends State<LoginScreen> {
       height: double.infinity,
       child: SingleChildScrollView(
         physics: AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 40, vertical: 170),
+        padding: EdgeInsets.symmetric(horizontal: 40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              imgSrc,
+              height: 75,
+            ),
+            SizedBox(
+              height: 30,
+            ),
             Text('Login to your account',
                 style: GoogleFonts.raleway(
                     fontSize: 22, fontWeight: FontWeight.w600)),

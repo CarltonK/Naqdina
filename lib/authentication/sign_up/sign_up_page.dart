@@ -4,17 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:naqdina/authentication/reset_password/code_page.dart';
 import 'package:naqdina/authentication/reset_password/number_page.dart';
-import 'package:naqdina/authentication/reset_password/reset_page.dart';
+import 'package:naqdina/authentication/sign_up/business_info.dart';
+import 'package:naqdina/authentication/sign_up/credentials_info.dart';
+import 'package:naqdina/authentication/sign_up/personal_info.dart';
+import 'package:naqdina/authentication/sign_up/pin_info.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
+class SignUpScreen extends StatefulWidget {
   @override
-  _ForgotPasswordScreenState createState() => _ForgotPasswordScreenState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   PageController _controller;
   int _currentPage = 0;
-  int _numPages = 3;
+  int _numPages = 5;
 
   @override
   void initState() {
@@ -72,18 +75,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       width: MediaQuery.of(context).size.width,
       child: PageView(
         controller: _controller,
-        physics: NeverScrollableScrollPhysics(),
+        // physics: NeverScrollableScrollPhysics(),
         onPageChanged: changePage,
         children: [
-          NumberPage(
+          CodePage(controller: _controller),
+          PersonalInfo(
             controller: _controller,
           ),
-          CodePage(
+          BusinessInfo(
             controller: _controller,
           ),
-          ResetPage(
+          CredentialsInfo(
             controller: _controller,
-          )
+          ),
+          PinInfo()
         ],
       ),
     );
@@ -104,10 +109,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         background: _indicatorTop(MediaQuery.of(context).size),
         collapseMode: CollapseMode.parallax,
         title: Text(
-          'Password Recovery',
+          'Sign Up',
           style: GoogleFonts.raleway(color: Colors.black),
         ),
-        centerTitle: Platform.isAndroid ? false : true,
+        centerTitle: true,
       ),
     );
   }
